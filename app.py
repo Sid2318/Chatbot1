@@ -1,46 +1,39 @@
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+
 import google.generativeai as genai
 
-# Configure Flask App
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///chatbot.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Initialize Database
-db = SQLAlchemy(app)
+genai.configure(api_key="AIzaSyD3IHgDTHiHU3QffVML_P2qBXkQN8Zd-mY")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
+chat_history = []  # Temporary storage (clears when server restarts)
 
-genai.configure(api_key="key")
-model = genai.GenerativeModel("gemini-2.0-flash")
+def chat_with_gemini(user_code):
+    prompt = f"Tell:\n\n{user_code}"
+    response = model.generate_content(prompt)
+    return response.text if response else "Sorry, I couldn't analyze this code."
 
-# Database Model for Chat History
-class ChatHistory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_message = db.Column(db.Text, nullable=False)
-    bot_response = db.Column(db.Text, nullable=False)
+# def chatbot_response(user_message):
+#     responses = {
+#         "hello": "Hi there! 😊 How can I help you?",
+#         "how are you": "I'm just a bot, but I'm doing great! What about you?",
+#         "bye": "Goodbye! Have a great day! 👋",
+#     }
+#     return responses.get(user_message.lower(), "I'm not sure about that 🤔, but I'm always learning!")
 
-
-
-# Chatbot Function
-def chat_with_gemini(user_input):
-    response = model.generate_content(user_input)
-    return response.text
-
-# Flask Routes
 @app.route("/")
 def home():
     return render_template("index.html")
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_input = request.json["message"]
-    bot_response = chat_with_gemini(user_input)
+    user_message = request.json.get("message")
+    # bot_reply = chatbot_response(user_message)
 
-    # Save conversation to database
-    new_chat = ChatHistory(user_message=user_input, bot_response=bot_response)
-    db.session.add(new_chat)
-    db.session.commit()
+    bot_response = chat_with_gemini(user_message)
+
+    chat_history.append({"user": user_message, "bot": bot_response})  # Store chat in list
 
     return jsonify({"response": bot_response})
 
