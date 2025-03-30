@@ -19,15 +19,31 @@ function sendMessage() {
 
     inputField.value = ""; // Clear input field
 }
-
-function displayMessage(message, sender) {
+function displayMessage(message, sender, isMarkdown = false) {
     let chatbox = document.getElementById("chatbox");
     let messageElement = document.createElement("div");
     messageElement.classList.add("message", sender);
-    messageElement.textContent = message;
+    
+    if (sender === "bot") {
+        // For bot messages, render the HTML directly
+        messageElement.innerHTML = message;
+    } else {
+        // For user messages, keep as plain text
+        messageElement.textContent = message;
+    }
+    
     chatbox.appendChild(messageElement);
-    chatbox.scrollTop = chatbox.scrollHeight; // Auto-scroll
+    chatbox.scrollTop = chatbox.scrollHeight;
 }
+
+// function displayMessage(message, sender) {
+//     let chatbox = document.getElementById("chatbox");
+//     let messageElement = document.createElement("div");
+//     messageElement.classList.add("message", sender);
+//     messageElement.textContent = message;
+//     chatbox.appendChild(messageElement);
+//     chatbox.scrollTop = chatbox.scrollHeight; // Auto-scroll
+// }
 
 document.addEventListener('DOMContentLoaded', function() {
     // Theme toggle functionality

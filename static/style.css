@@ -316,3 +316,68 @@ body:not(.dark-theme) .theme-toggle-container {
 .dark-theme .theme-toggle-container {
     background-color: #2a2a2a; /* Dark gray */
 }
+.bot-message {
+    background: #f8f9fa;
+    border-radius: 0 15px 15px 15px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+pre {
+    background: #f1f3f4;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+code {
+    background: #e8f0fe;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.message.bot {
+    background: #f8f9fa;
+    border-radius: 0 15px 15px 15px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.message.bot h1, .message.bot h2, .message.bot h3 {
+    margin: 10px 0 5px 0;
+    font-size: 1.2em;
+}
+
+.message.bot pre {
+    background: #f1f3f4;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+.message.bot code {
+    background: #e8f0fe;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.message.bot ul, .message.bot ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.message.bot table {
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.message.bot table, .message.bot th, .message.bot td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+pre code {
+    font-size: inherit;
+    color: #2f2d2d;
+    word-break: normal;
+}
