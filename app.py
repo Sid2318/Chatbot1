@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 app = Flask(__name__)
 
-genai.configure(api_key="ur api key")
+genai.configure(api_key="ur key")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 chat_history = []  # Temporary storage (clears when server restarts)
