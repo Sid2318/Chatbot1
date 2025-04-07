@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.secret_key = "c674707ef5d2e8be9b66e06e200d4946c4aa61541b0b2d1052c69a01a809b334"  # Required for session handling
 
 # Configure Gemini AI
-genai.configure(api_key="AIzaSyD3IHgDTHiHU3QffVML_P2qBXkQN8Zd-mY")
+genai.configure(api_key="your_api_key")
 model = genai.GenerativeModel("gemini-1.5-flash", #generation_config={
     # "max_output_tokens": 2048,
     # "temperature": 0.5,
